@@ -31,6 +31,7 @@ long loop_nb;
 long last_see;
 long nb_pass;
 int passing;
+int init0;
 
 void setup() {
   pinMode(led_pass, OUTPUT); // Sets the trigPin as an Output
@@ -44,6 +45,7 @@ void setup() {
   last_see = 0;
   nb_pass = 0;
   passing = 0;
+  init0 = 0;
 
   Serial.println();
   Serial.println();
@@ -105,6 +107,12 @@ void loop() {
 
   // wait for WiFi connection
   if ((WiFiMulti.run() == WL_CONNECTED)) {
+
+
+    if (!init0){
+      init0 = 1;
+      send_data(0);
+    }
 
     // Clears the trigPin
     digitalWrite(trigPin, LOW);
